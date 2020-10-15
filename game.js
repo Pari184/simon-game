@@ -1,9 +1,9 @@
-let gamePattern = [];
+var gamePattern = [];
 let buttonColors = ["red", "blue", "green", "yellow"];
 
 let userClickedPattern = [];
-let started = false;
-let level = 0;
+var started = false;
+var level = 0;
 
 
 function nextSequence() {
@@ -44,11 +44,18 @@ function checkAnswer(currentLevel) {
 
     } else {
 
-        console.log("wrong");
+        playSound("wrong");
+        $("body").addClass("game-over");
+        setTimeout(function() {
+            $("body").removeClass("game-over");
+        }, 200);
+        $("h1").text("Game Over, Press Any Key to Restart");
+        startOver();
 
     }
 
 }
+
 
 function playSound(name) {
 
@@ -64,6 +71,12 @@ function animatePress(currentColor) {
     }, 100);
 }
 
+function startOver() {
+    gamePattern = [];
+    level = 0;
+    started = false;
+
+}
 $(document).keypress(function() {
 
     if (!started) {
@@ -73,5 +86,4 @@ $(document).keypress(function() {
         started = true;
 
     }
-
 });
